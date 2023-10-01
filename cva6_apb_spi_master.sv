@@ -10,7 +10,7 @@
 
 `define log2(VALUE) ((VALUE) < ( 1 ) ? 0 : (VALUE) < ( 2 ) ? 1 : (VALUE) < ( 4 ) ? 2 : (VALUE) < ( 8 ) ? 3 : (VALUE) < ( 16 )  ? 4 : (VALUE) < ( 32 )  ? 5 : (VALUE) < ( 64 )  ? 6 : (VALUE) < ( 128 ) ? 7 : (VALUE) < ( 256 ) ? 8 : (VALUE) < ( 512 ) ? 9 : (VALUE) < ( 1024 ) ? 10 : (VALUE) < ( 2048 ) ? 11 : (VALUE) < ( 4096 ) ? 12 : (VALUE) < ( 8192 ) ? 13 : (VALUE) < ( 16384 ) ? 14 : (VALUE) < ( 32768 ) ? 15 : (VALUE) < ( 65536 ) ? 16 : (VALUE) < ( 131072 ) ? 17 : (VALUE) < ( 262144 ) ? 18 : (VALUE) < ( 524288 ) ? 19 : (VALUE) < ( 1048576 ) ? 20 : (VALUE) < ( 1048576 * 2 ) ? 21 : (VALUE) < ( 1048576 * 4 ) ? 22 : (VALUE) < ( 1048576 * 8 ) ? 23 : (VALUE) < ( 1048576 * 16 ) ? 24 : 25)
 
-module apb_spi_master
+module cva6_apb_spi_master
 #(
     parameter BUFFER_DEPTH   = 10,
     parameter APB_ADDR_WIDTH = 12  //APB slaves are 4KB by default
@@ -239,7 +239,7 @@ module apb_spi_master
         endcase
     end
 
-    spi_master_apb_if
+    cva6_spi_master_apb_if
     #(
         .BUFFER_DEPTH   ( BUFFER_DEPTH   ),
         .APB_ADDR_WIDTH ( APB_ADDR_WIDTH )
@@ -288,7 +288,7 @@ module apb_spi_master
         .spi_data_rx_ready ( spi_data_rx_ready )
     );
 
-    spi_master_fifo
+    cva6_spi_master_fifo
     #(
         .DATA_WIDTH   ( 32           ),
         .BUFFER_DEPTH ( BUFFER_DEPTH )
@@ -310,7 +310,7 @@ module apb_spi_master
         .ready_o    ( spi_data_tx_ready      )
     );
 
-    spi_master_fifo
+    cva6_spi_master_fifo
     #(
         .DATA_WIDTH   ( 32           ),
         .BUFFER_DEPTH ( BUFFER_DEPTH )
@@ -332,7 +332,7 @@ module apb_spi_master
         .ready_o    ( spi_ctrl_data_rx_ready )
     );
 
-    spi_master_controller u_spictrl
+    cva6_spi_master_controller u_spictrl
     (
         .clk                    ( HCLK                   ),
         .rstn                   ( HRESETn                ),
